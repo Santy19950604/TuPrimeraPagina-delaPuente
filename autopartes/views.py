@@ -2,29 +2,36 @@ from django.shortcuts import render, redirect
 from .forms import MarcaForm, ModeloForm, AutoparteForm, BuscarAutoparteForm
 from .models import Autoparte
 from django.db.models import Q
+from django.contrib import messages
 
 def inicio(request):
     return render(request, 'autopartes/index.html')
 
 def agregar_marca(request):
     form = MarcaForm(request.POST or None)
-    if form.is_valid():
-        form.save()
-        return redirect('inicio')
+    if request.method == 'POST':
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Marca agregada exitosamente.")
+            form = MarcaForm()
     return render(request, 'autopartes/formulario.html', {'form': form, 'titulo': 'Agregar Marca'})
 
 def agregar_modelo(request):
     form = ModeloForm(request.POST or None)
-    if form.is_valid():
-        form.save()
-        return redirect('inicio')
+    if request.method == 'POST':
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Modelo agregado exitosamente.")
+            form = ModeloForm()
     return render(request, 'autopartes/formulario.html', {'form': form, 'titulo': 'Agregar Modelo'})
 
 def agregar_autoparte(request):
     form = AutoparteForm(request.POST or None)
-    if form.is_valid():
-        form.save()
-        return redirect('inicio')
+    if request.method == 'POST':
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Autoparte agregada exitosamente.")
+            form = AutoparteForm()
     return render(request, 'autopartes/formulario.html', {'form': form, 'titulo': 'Agregar Autoparte'})
 
 def buscar_autoparte(request):

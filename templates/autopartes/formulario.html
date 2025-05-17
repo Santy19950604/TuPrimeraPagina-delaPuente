@@ -1,9 +1,21 @@
 {% extends 'base.html' %}
+
 {% block contenido %}
+
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li style="color: green;">{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+
 <h2>{{ titulo }}</h2>
-<form method="post">
+
+<form method="post" novalidate>
     {% csrf_token %}
     {{ form.as_p }}
     <button type="submit">Guardar</button>
 </form>
+
 {% endblock %}
