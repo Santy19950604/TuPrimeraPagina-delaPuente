@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block contenido %}
+<h2>Buscar Autopartes</h2>
+
+<form method="get">
+    {{ form.as_p }}
+    <button type="submit">Buscar</button>
+</form>
+
+{% if resultados %}
+<h3>Resultados:</h3>
+<ul>
+    {% for a in resultados %}
+    <li>
+        Descripción: {{ a.descripcion }} |
+        Nro Serie: {{ a.numero_serie }} |
+        Marca: {{ a.marca.nombre }} |
+        Modelo: {{ a.modelo.nombre }}
+    </li>
+    {% endfor %}
+</ul>
+{% elif mensaje %}
+<p>{{ mensaje }}</p>
+{% endif %}
+{% endblock %}

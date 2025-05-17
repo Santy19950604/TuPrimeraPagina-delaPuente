@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Autopartes</title>
+</head>
+
+<body>
+    <h1>Autopartes Argentina</h1>
+    <nav>
+        <a href="{% url 'inicio' %}">Inicio</a> |
+        <a href="{% url 'agregar_marca' %}">Agregar Marca</a> |
+        <a href="{% url 'agregar_modelo' %}">Agregar Modelo</a> |
+        <a href="{% url 'agregar_autoparte' %}">Agregar Autoparte</a> |
+        <a href="{% url 'buscar_autoparte' %}">Buscar</a>
+    </nav>
+    <hr>
+    {% block contenido %}{% endblock %}
+</body>
+
+</html>

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -172,3 +173,21 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+=======
+# entorno virtual
+venv/
+
+# base de datos sqlite
+*.sqlite3
+
+# archivos compilados
+__pycache__/
+*.py[cod]
+
+# archivos de configuración o secretos
+.env
+*.log
+
+# configuraciones del editor
+.vscode/
+>>>>>>> 579a1f3 (Primer commit - subiendo Entrega3 - autopartes)
