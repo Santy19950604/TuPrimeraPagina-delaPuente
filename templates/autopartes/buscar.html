@@ -1,26 +1,36 @@
 {% extends 'base.html' %}
-
 {% block contenido %}
-<h2>Buscar Autopartes</h2>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-sm rounded-3">
+                <div class="card-body">
+                    <h2 class="card-title text-center mb-4">Buscar Autopartes</h2>
+                    <form method="get" class="mb-4">
+                        <div class="input-group">
+                            <input type="text" name="criterio" class="form-control rounded-start"
+                                placeholder="Ingrese marca, modelo, descripción o nro de serie"
+                                value="{{ form.criterio.value|default:'' }}">
+                            <button type="submit" class="btn btn-dark rounded-end">Buscar</button>
+                        </div>
+                    </form>
 
-<form method="get">
-    {{ form.as_p }}
-    <button type="submit">Buscar</button>
-</form>
-
-{% if resultados %}
-<h3>Resultados:</h3>
-<ul>
-    {% for a in resultados %}
-    <li>
-        Descripción: {{ a.descripcion }} |
-        Nro Serie: {{ a.numero_serie }} |
-        Marca: {{ a.marca.nombre }} |
-        Modelo: {{ a.modelo.nombre }}
-    </li>
-    {% endfor %}
-</ul>
-{% elif mensaje %}
-<p>{{ mensaje }}</p>
-{% endif %}
+                    {% if resultados %}
+                    <h5>Resultados:</h5>
+                    <ul class="list-group">
+                        {% for autoparte in resultados %}
+                        <li class="list-group-item">
+                            <strong>{{ autoparte.numero_serie }}</strong> - {{ autoparte.descripcion }}<br>
+                            Marca: {{ autoparte.marca.nombre }} | Modelo: {{ autoparte.modelo.nombre }}
+                        </li>
+                        {% endfor %}
+                    </ul>
+                    {% elif form.criterio.value %}
+                    <p class="text-muted mt-3">No se encontraron resultados para "{{ form.criterio.value }}"</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
