@@ -2,13 +2,19 @@
 
 # Esta es la estructura general del proyecto:
 
-TuPrimeraPagina+delaPuente/
-├── Entrega3/               # Proyecto principal Django
-├── autopartes/             # Aplicacion principal con modelos, vistas, formularios
-├── templates/              # Templates con herencia base.html
-├── db.sqlite3              # Base de datos SQLite
-├── manage.py
-└── README.md
+TuPrimeraPagina-delaPuente/
+├── Entrega_final/ # Proyecto principal Django (configuración global)
+├── autopartes/ # App principal con modelos, vistas, formularios (CRUD de autopartes)
+├── accounts/ # App de autenticación de usuarios y perfiles
+├── mensajeria/ # App de mensajes entre usuarios
+├── templates/ # Templates HTML con herencia desde base.html
+├── static/ # Archivos estáticos (CSS, JS, imágenes)
+├── media/ # Archivos subidos (imágenes de autopartes)
+├── db.sqlite3 # Base de datos SQLite
+├── manage.py # Script principal de Django
+├── requirements.txt # Dependencias del proyecto
+├── .gitignore # Archivos ignorados por Git
+└── README.md # Este archivo
 
 *Es recomendable instalar las dependencias utilizadas para el diseño de esta web con el comando:
 

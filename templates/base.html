@@ -4,74 +4,102 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Autopartes Santiago</title>
+    <title>{% block title %}Autopartes Santiago{% endblock %}</title>
+
+    <!-- Bootstrap & Fuentes -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet" />
+
     <style>
-        /* Navbar negro con texto blanco */
+        body {
+            color: #212529;
+            font-family: 'Montserrat', sans-serif;
+            background-color: #f8f9fa;
+        }
+
         .navbar-dark {
-            background-color: #000000;
+            background-color: #000;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
         .navbar-dark .navbar-brand {
-            font-size: 2.5rem;
-            /* quitamos font-weight para que no sea negrita */
+            font-size: 2rem;
             color: white;
         }
 
         .navbar-dark .nav-link {
-            color: rgba(255, 255, 255, 0.8);
+            color: rgba(255, 255, 255, 0.85);
+            transition: all 0.2s;
         }
 
-        .navbar-dark .nav-link.nav-hover:hover {
-            background-color: white;
-            color: black !important;
-            border-radius: 0.25rem;
-            transition: background-color 0.3s, color 0.3s;
+        .navbar-dark .nav-link:hover {
+            color: #ffc107;
         }
 
-        body {
-            color: black;
-            font-family: 'Montserrat', sans-serif;
+        .action-buttons a {
+            margin-right: 0.5rem;
+        }
+
+        .main-content {
+            margin-top: 2rem;
         }
     </style>
-
-    <!-- Fuente Montserrat desde Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet" />
 </head>
 
 <body>
+
     <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container">
             <a class="navbar-brand" href="{% url 'inicio' %}">Autopartes Santiago</a>
+
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
+
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link nav-hover" href="{% url 'inicio' %}">Inicio</a>
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item"><a class="nav-link" href="{% url 'inicio' %}">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'about' %}">Acerca de mí</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'buscar_autoparte' %}">Buscar</a></li>
+
+                    {% if user.is_authenticated %}
+                    <li class="nav-item"><a class="nav-link" href="{% url 'bandeja' %}">Mensajes</a></li>
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            {{ user.username }}
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="{% url 'profile' %}">Perfil</a></li>
+                            <li>
+                                <form method="POST" action="{% url 'logout' %}" class="d-inline">
+                                    {% csrf_token %}
+                                    <button type="submit" class="dropdown-item">Cerrar sesión</button>
+                                </form>
+                            </li>
+                        </ul>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link nav-hover" href="{% url 'agregar_marca' %}">Agregar Marca</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link nav-hover" href="{% url 'agregar_modelo' %}">Agregar Modelo</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link nav-hover" href="{% url 'agregar_autoparte' %}">Agregar Autoparte</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link nav-hover" href="{% url 'buscar_autoparte' %}">Buscar</a>
-                    </li>
+                    {% else %}
+                    <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Login</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'signup' %}">Registrarse</a></li>
+                    {% endif %}
                 </ul>
             </div>
         </div>
     </nav>
 
-    <hr />
+    {% if user.is_authenticated %}
+    <div class="container mt-3 action-buttons text-end">
+        <a href="{% url 'agregar_marca' %}" class="btn btn-outline-dark btn-sm">Agregar Marca</a>
+        <a href="{% url 'agregar_modelo' %}" class="btn btn-outline-dark btn-sm">Agregar Modelo</a>
+        <a href="{% url 'autoparte_create' %}" class="btn btn-outline-dark btn-sm">Agregar Autoparte</a>
+    </div>
+    {% endif %}
 
-    {% block contenido %}{% endblock %}
+    <div class="container main-content">
+        {% block content %}{% endblock %}
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>

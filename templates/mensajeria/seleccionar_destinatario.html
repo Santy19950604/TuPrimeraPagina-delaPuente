@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Seleccionar destinatario</h2>
+    <ul class="list-group">
+        {% for usuario in usuarios %}
+        <li class="list-group-item">
+            {{ usuario.username }}
+            <a href="{% url 'enviar_mensaje' usuario.id %}" class="btn btn-sm btn-success float-end">Enviar mensaje</a>
+        </li>
+        {% empty %}
+        <li class="list-group-item">No hay otros usuarios registrados.</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

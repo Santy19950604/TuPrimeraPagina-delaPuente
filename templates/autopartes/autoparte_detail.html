@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-4">
+    <h2>Detalle de la Autoparte</h2>
+    {% if autoparte.imagen %}
+    <img src="{{ autoparte.imagen.url }}" class="img-fluid mb-3" alt="Imagen">
+    {% endif %}
+    <p><strong>Número de serie:</strong> {{ autoparte.numero_serie }}</p>
+    <p><strong>Marca:</strong> {{ autoparte.marca }}</p>
+    <p><strong>Modelo:</strong> {{ autoparte.modelo }}</p>
+    <p><strong>Descripción:</strong></p>
+    <div>{{ autoparte.descripcion|safe }}</div>
+
+    <a href="{% url 'autoparte_list' %}" class="btn btn-secondary mt-3">Volver a la lista</a>
+
+    {% if user.is_authenticated %}
+    <a href="{% url 'autoparte_update' autoparte.pk %}" class="btn btn-warning mt-3">Editar</a>
+    <a href="{% url 'autoparte_delete' autoparte.pk %}" class="btn btn-danger mt-3">Eliminar</a>
+    {% endif %}
+</div>
+{% endblock %}

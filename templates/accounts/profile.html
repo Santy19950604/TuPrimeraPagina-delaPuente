@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Perfil de {{ request.user.username }}{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Perfil de {{ request.user.username }}</h2>
+
+    <div class="row">
+        <div class="col-md-4">
+            {% if request.user.profile.avatar %}
+            <img src="{{ request.user.profile.avatar.url }}" alt="Avatar" class="img-fluid rounded-circle mb-3">
+            {% else %}
+            <img src="https://ceslava.s3-accelerate.amazonaws.com/2016/04/mistery-man-gravatar-wordpress-avatar-persona-misteriosa-510x510.png"
+                alt="Avatar por defecto" class="img-fluid rounded-circle mb-3">
+            {% endif %}
+        </div>
+
+        <div class="col-md-8 d-flex flex-column align-items-center">
+            <p><strong>Nombre de usuario:</strong> {{ request.user.username }}</p>
+            <p><strong>Email:</strong> {{ request.user.email }}</p>
+            <p><strong>Nombre:</strong> {{ request.user.first_name }}</p>
+            <p><strong>Apellido:</strong> {{ request.user.last_name }}</p>
+            <p><strong>Biografía:</strong> {{ request.user.profile.biografia|linebreaks }}</p>
+            <p><strong>Fecha de nacimiento:</strong> {{ request.user.profile.fecha_nacimiento|date:"d/m/Y" }}</p>
+            <p><strong>Link:</strong>
+                {% if request.user.profile.link %}
+                <a href="{{ request.user.profile.link }}" target="_blank">{{ request.user.profile.link }}</a>
+                {% else %}
+                No definido
+                {% endif %}
+            </p>
+
+            <a href="{% url 'profile_edit' %}" class="btn btn-primary mb-3">Editar perfil</a>
+
+            <form method="POST" action="{% url 'logout' %}">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-secondary px-4">Cerrar sesión</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

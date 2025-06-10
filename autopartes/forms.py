@@ -14,7 +14,7 @@ class ModeloForm(forms.ModelForm):
 class AutoparteForm(forms.ModelForm):
     class Meta:
         model = Autoparte
-        fields = ['numero_serie', 'descripcion', 'marca', 'modelo']
+        fields = ['numero_serie', 'descripcion', 'imagen', 'marca', 'modelo']
 
 class BuscarAutoparteForm(forms.Form):
     criterio = forms.CharField(

@@ -1,33 +1,19 @@
 {% extends 'base.html' %}
-{% block contenido %}
+{% block content %}
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card shadow-sm rounded-3">
                 <div class="card-body">
                     <h2 class="card-title text-center mb-4">Buscar Autopartes</h2>
-                    <form method="get" class="mb-4">
+                    <form method="get" action="{% url 'autoparte_list' %}" class="mb-4">
                         <div class="input-group">
-                            <input type="text" name="criterio" class="form-control rounded-start"
+                            <input type="text" name="q" class="form-control rounded-start"
                                 placeholder="Ingrese marca, modelo, descripción o nro de serie"
-                                value="{{ form.criterio.value|default:'' }}">
+                                value="{{ request.GET.q|default:'' }}">
                             <button type="submit" class="btn btn-dark rounded-end">Buscar</button>
                         </div>
                     </form>
-
-                    {% if resultados %}
-                    <h5>Resultados:</h5>
-                    <ul class="list-group">
-                        {% for autoparte in resultados %}
-                        <li class="list-group-item">
-                            <strong>{{ autoparte.numero_serie }}</strong> - {{ autoparte.descripcion }}<br>
-                            Marca: {{ autoparte.marca.nombre }} | Modelo: {{ autoparte.modelo.nombre }}
-                        </li>
-                        {% endfor %}
-                    </ul>
-                    {% elif form.criterio.value %}
-                    <p class="text-muted mt-3">No se encontraron resultados para "{{ form.criterio.value }}"</p>
-                    {% endif %}
                 </div>
             </div>
         </div>
