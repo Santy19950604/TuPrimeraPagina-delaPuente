@@ -26,7 +26,7 @@ class Modelo(models.Model):
 class Autoparte(models.Model):
     numero_serie = models.CharField(max_length=100, unique=True)
     descripcion = RichTextField()
-    imagen = models.ImageField(upload_to="autopartes/",blank=True, null=True)
+    imagen = models.ImageField(upload_to="autopartes/", blank=True, null=True)
     fecha_publicacion = models.DateTimeField(auto_now_add=True)
     marca = models.ForeignKey(Marca, on_delete=models.CASCADE)
     modelo = models.ForeignKey(Modelo, on_delete=models.CASCADE)

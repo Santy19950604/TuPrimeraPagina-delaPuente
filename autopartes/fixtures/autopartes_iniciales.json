@@ -1,0 +1,83 @@
+[
+    {
+        "model": "autopartes.Marca",
+        "pk": 1,
+        "fields": {
+            "nombre": "Toyota"
+        }
+    },
+    {
+        "model": "autopartes.Marca",
+        "pk": 2,
+        "fields": {
+            "nombre": "Ford"
+        }
+    },
+    {
+        "model": "autopartes.Marca",
+        "pk": 3,
+        "fields": {
+            "nombre": "Volkswagen"
+        }
+    },
+    {
+        "model": "autopartes.Modelo",
+        "pk": 1,
+        "fields": {
+            "nombre": "Corolla",
+            "marca": 1
+        }
+    },
+    {
+        "model": "autopartes.Modelo",
+        "pk": 2,
+        "fields": {
+            "nombre": "F-150",
+            "marca": 2
+        }
+    },
+    {
+        "model": "autopartes.Modelo",
+        "pk": 3,
+        "fields": {
+            "nombre": "Gol Trend",
+            "marca": 3
+        }
+    },
+    {
+        "model": "autopartes.Autoparte",
+        "pk": 1,
+        "fields": {
+            "numero_serie": "ABC-CORO-12345",
+            "descripcion": "Pastillas de freno delanteras de alta calidad para Toyota Corolla.",
+            "imagen": "autopartes/Toyota.webp",
+            "fecha_publicacion": "2025-06-11T15:24:10Z",
+            "marca": 1,
+            "modelo": 1
+        }
+    },
+    {
+        "model": "autopartes.Autoparte",
+        "pk": 2,
+        "fields": {
+            "numero_serie": "XYZ-F150-67890",
+            "descripcion": "Filtro de aire para motor 3.5L EcoBoost de Ford F-150.",
+            "imagen": "autopartes/Ford.webp",
+            "fecha_publicacion": "2025-06-11T15:25:41Z",
+            "marca": 2,
+            "modelo": 2
+        }
+    },
+    {
+        "model": "autopartes.Autoparte",
+        "pk": 3,
+        "fields": {
+            "numero_serie": "VW-GT-98765",
+            "descripcion": "Bujías de encendido originales para Volkswagen Gol Trend 1.6.",
+            "imagen": "autopartes/Volskwagen.jpg",
+            "fecha_publicacion": "2025-06-11T15:32:07Z",
+            "marca": 3,
+            "modelo": 3
+        }
+    }
+]

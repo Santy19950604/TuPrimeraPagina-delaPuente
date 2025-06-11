@@ -1,19 +1,67 @@
 {% extends 'base.html' %}
+
 {% block content %}
-<div class="container mt-5">
+<div class="container mt-4">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-12">
             <div class="card shadow-sm rounded-3">
                 <div class="card-body">
-                    <h2 class="card-title text-center mb-4">Buscar Autopartes</h2>
+                    {# Título dinámico para la página #}
+                    <h2 class="card-title text-center mb-4">
+                        {% if request.GET.q %}
+                        Resultados de Búsqueda para "{{ request.GET.q }}"
+                        {% else %}
+                        Listado Completo de Autopartes
+                        {% endif %}
+                    </h2>
+
+                    {# Formulario de búsqueda #}
                     <form method="get" action="{% url 'autoparte_list' %}" class="mb-4">
                         <div class="input-group">
                             <input type="text" name="q" class="form-control rounded-start"
                                 placeholder="Ingrese marca, modelo, descripción o nro de serie"
                                 value="{{ request.GET.q|default:'' }}">
                             <button type="submit" class="btn btn-dark rounded-end">Buscar</button>
+                            {% if request.GET.q %}
+                            {# Botón para borrar la búsqueda y mostrar todo el listado #}
+                            <a href="{% url 'autoparte_list' %}" class="btn btn-outline-secondary ms-2 rounded">Borrar
+                                Búsqueda</a>
+                            {% endif %}
                         </div>
                     </form>
+
+                    {# Sección para mostrar el listado de autopartes #}
+                    {% if autopartes %} {# 'autopartes' viene de context_object_name en AutoparteListView #}
+                    <div class="row">
+                        {% for autoparte in autopartes %}
+                        <div class="col-md-4 mb-4">
+                            <div class="card h-100">
+                                {% if autoparte.imagen %}
+                                <img src="{{ autoparte.imagen.url }}" class="card-img-top"
+                                    alt="{{ autoparte.numero_serie }}">
+                                {% else %}
+                                <img src="/static/img/default.png" class="card-img-top" alt="Imagen no disponible"> {#
+                                Asegúrate de tener una imagen por defecto en tu carpeta static/img/ #}
+                                {% endif %}
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ autoparte.numero_serie }}</h5>
+                                    <p class="card-text">Marca: {{ autoparte.marca.nombre }}</p>
+                                    <p class="card-text">Modelo: {{ autoparte.modelo.nombre }}</p>
+                                    <p class="card-text">{{ autoparte.descripcion|safe|truncatewords:15 }}</p>
+                                    <a href="{% url 'autoparte_detail' autoparte.pk %}" class="btn btn-primary mt-2">Ver
+                                        Detalle</a>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    <p class="alert alert-info text-center mt-4">
+                        No se encontraron autopartes {% if request.GET.q %}para "{{ request.GET.q }}"{% else
+                        %}cargadas.{% endif %}
+                    </p>
+                    {% endif %}
+
                 </div>
             </div>
         </div>
