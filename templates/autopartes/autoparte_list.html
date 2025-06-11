@@ -4,7 +4,7 @@
 <div class="container mt-4">
     <h2>Lista de Autopartes</h2>
 
-    <!-- Formulario de búsqueda -->
+
     <form method="get" action="{% url 'autoparte_list' %}" class="mb-3 d-flex">
         <input type="text" name="q" class="form-control me-2" placeholder="Buscar autoparte..."
             value="{{ request.GET.q }}">
